@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Evolución de Enfermería - Salud Mental</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 15px;
+        }
+
+        .container {
+            max-width: 950px;
+            width: 100%;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            padding: 30px 35px 40px;
+            margin-bottom: 30px;
+        }
+
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #1a5276;
+            padding-bottom: 18px;
+            margin-bottom: 25px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+            color: #1a5276;
+            letter-spacing: 1px;
+            font-weight: 700;
+        }
+
+        .header h2 {
+            font-size: 18px;
+            color: #2e86c1;
+            font-weight: 500;
+            margin-top: 2px;
+        }
+
+        .header h3 {
+            font-size: 16px;
+            color: #5d6d7e;
+            font-weight: 400;
+            margin-top: 2px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .datos-paciente {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 10px 15px;
+            background: #eaf2f8;
+            padding: 12px 18px;
+            border-radius: 8px;
+            margin-bottom: 22px;
+            font-size: 14px;
+            border-left: 5px solid #1a5276;
+        }
+
+        .datos-paciente .campo {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .datos-paciente .label {
+            font-weight: 600;
+            color: #1a5276;
+            font-size: 13px;
+        }
+
+        .datos-paciente .valor-input {
+            border: none;
+            border-bottom: 1.5px solid #85929e;
+            background: transparent;
+            flex: 1;
+            min-width: 50px;
+            font-size: 14px;
+            padding: 2px 4px;
+            font-weight: 500;
+            color: #1c2833;
+            outline: none;
+        }
+
+        .datos-paciente .valor-input:focus {
+            border-bottom-color: #1a5276;
+        }
+
+        .datos-paciente select.valor-input {
+            cursor: pointer;
+            appearance: auto;
+            background: transparent;
+        }
+
+        .seccion {
+            margin-bottom: 18px;
+            border: 1px solid #d5dbdb;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .seccion-header {
+            padding: 10px 18px;
+            font-weight: 700;
+            font-size: 16px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: default;
+        }
+
+        .seccion-header .letra {
+            background: rgba(255, 255, 255, 0.25);
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+        }
+
+        .seccion-header .titulo {
+            letter-spacing: 0.5px;
+        }
+
+        .seccion-header .subtitulo {
+            font-weight: 400;
+            font-size: 13px;
+            opacity: 0.85;
+            margin-left: 6px;
+        }
+
+        .sbar-s .seccion-header { background: #2471a3; }
+        .sbar-b .seccion-header { background: #1e8449; }
+        .sbar-a .seccion-header { background: #b7950b; }
+        .sbar-r .seccion-header { background: #cb4335; }
+
+        .seccion-body {
+            padding: 14px 18px 16px;
+            background: #fdfefe;
+        }
+
+        .sbar-s .opciones-novedad {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .sbar-s .opciones-novedad label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .sbar-s .opciones-novedad input[type="radio"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #2471a3;
+            cursor: pointer;
+        }
+
+        .textarea-s {
+            width: 100%;
+            min-height: 50px;
+            border: 1.5px solid #d5dbdb;
+            border-radius: 6px;
+            padding: 10px 12px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            transition: border-color 0.2s;
+            background: white;
+            color: #1c2833;
+        }
+
+        .textarea-s:focus {
+            border-color: #2471a3;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(36, 113, 163, 0.15);
+        }
+
+        .grid-b {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px 20px;
+        }
+
+        .campo-b {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+        }
+
+        .campo-b label {
+            font-weight: 600;
+            font-size: 13px;
+            color: #1e8449;
+        }
+
+        .campo-b input,
+        .campo-b select {
+            border: none;
+            border-bottom: 1.5px solid #d5dbdb;
+            padding: 4px 4px 6px;
+            font-size: 14px;
+            background: transparent;
+            outline: none;
+            font-family: inherit;
+            color: #1c2833;
+            transition: border-color 0.2s;
+        }
+
+        .campo-b input:focus,
+        .campo-b select:focus {
+            border-bottom-color: #1e8449;
+        }
+
+        .campo-b select {
+            cursor: pointer;
+            appearance: auto;
+        }
+
+        .tabla-a {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .tabla-a td,
+        .tabla-a th {
+            padding: 6px 8px;
+            border-bottom: 1px solid #e5e8e8;
+            vertical-align: middle;
+        }
+
+        .tabla-a .etiqueta {
+            font-weight: 600;
+            color: #7d6608;
+            width: 110px;
+            white-space: nowrap;
+        }
+
+        .tabla-a .opciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px 12px;
+        }
+
+        .tabla-a .opciones label {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            font-size: 13px;
+        }
+
+        .tabla-a .opciones input[type="radio"] {
+            accent-color: #b7950b;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+
+        .tabla-a .obs-input {
+            border: none;
+            border-bottom: 1px dashed #bdc3c7;
+            background: transparent;
+            min-width: 80px;
+            padding: 2px 6px;
+            font-size: 13px;
+            outline: none;
+            font-family: inherit;
+            color: #1c2833;
+            width: 100%;
+        }
+
+        .tabla-a .obs-input:focus {
+            border-bottom-color: #b7950b;
+        }
+
+        /* Signos vitales */
+        .signos-vitales {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px 15px;
+            background: #fef9e7;
+            padding: 10px 14px;
+            border-radius: 6px;
+            margin-top: 6px;
+            border: 1px solid #f9e79f;
+        }
+
+        .signos-vitales .campo-sv {
+            display: flex;
+            align-items: baseline;
+            gap: 4px;
+            flex-wrap: wrap;
+        }
+
+        .signos-vitales .label-sv {
+            font-weight: 600;
+            font-size: 12px;
+            color: #7d6608;
+        }
+
+        .signos-vitales .input-sv {
+            border: none;
+            border-bottom: 1.5px solid #d5dbdb;
+            background: transparent;
+            width: 60px;
+            font-size: 14px;
+            padding: 2px 4px;
+            outline: none;
+            font-weight: 500;
+            color: #1c2833;
+        }
+
+        .signos-vitales .input-sv:focus {
+            border-bottom-color: #b7950b;
+        }
+
+        .signos-vitales .input-sv-small {
+            width: 45px;
+        }
+
+        .riesgos-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 25px;
+            margin-bottom: 14px;
+        }
+
+        .riesgo-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            padding: 4px 0;
+            border-bottom: 1px solid #f2f3f4;
+        }
+
+        .riesgo-item .nombre {
+            font-weight: 600;
+            font-size: 13px;
+            color: #922b21;
+            min-width: 100px;
+        }
+
+        .riesgo-item .opciones-riesgo {
+            display: flex;
+            gap: 6px 14px;
+            flex-wrap: wrap;
+        }
+
+        .riesgo-item .opciones-riesgo label {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .riesgo-item .opciones-riesgo input[type="radio"] {
+            accent-color: #cb4335;
+            width: 15px;
+            height: 15px;
+            cursor: pointer;
+        }
+
+        .riesgo-item .obs-riesgo {
+            border: none;
+            border-bottom: 1px dashed #bdc3c7;
+            background: transparent;
+            padding: 2px 6px;
+            font-size: 13px;
+            outline: none;
+            font-family: inherit;
+            flex: 1;
+            min-width: 80px;
+            color: #1c2833;
+        }
+
+        .riesgo-item .obs-riesgo:focus {
+            border-bottom-color: #cb4335;
+        }
+
+        .recomendacion-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px 20px;
+            margin-bottom: 12px;
+        }
+
+        .reco-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .reco-item input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            accent-color: #cb4335;
+            cursor: pointer;
+        }
+
+        .reco-item .reco-obs {
+            border: none;
+            border-bottom: 1px dashed #bdc3c7;
+            background: transparent;
+            padding: 2px 6px;
+            font-size: 13px;
+            outline: none;
+            font-family: inherit;
+            flex: 1;
+            min-width: 60px;
+            color: #1c2833;
+        }
+
+        .reco-item .reco-obs:focus {
+            border-bottom-color: #cb4335;
+        }
+
+        .textarea-r {
+            width: 100%;
+            min-height: 45px;
+            border: 1.5px solid #d5dbdb;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            transition: border-color 0.2s;
+            background: white;
+            color: #1c2833;
+            margin-top: 4px;
+        }
+
+        .textarea-r:focus {
+            border-color: #cb4335;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(203, 67, 53, 0.12);
+        }
+
+        .resumen-final {
+            margin-top: 25px;
+            border-top: 3px solid #1a5276;
+            padding-top: 20px;
+        }
+
+        .resumen-final .resumen-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .resumen-final .resumen-header h4 {
+            font-size: 16px;
+            color: #1a5276;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .resumen-final .resumen-header .badge-auto {
+            font-size: 12px;
+            background: #eaf2f8;
+            color: #1a5276;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 400;
+        }
+
+        .resumen-final .acciones-resumen {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .resumen-final .acciones-resumen .btn {
+            padding: 8px 20px;
+            font-size: 13px;
+        }
+
+        .resumen-final textarea {
+            width: 100%;
+            min-height: 300px;
+            border: 1.5px solid #d5dbdb;
+            border-radius: 8px;
+            padding: 14px 16px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.7;
+            resize: vertical;
+            background: #fafbfc;
+            color: #1c2833;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .resumen-final textarea:focus {
+            border-color: #1a5276;
+            box-shadow: 0 0 0 3px rgba(26, 82, 118, 0.1);
+        }
+
+        .resumen-final textarea:read-only {
+            cursor: default;
+        }
+
+        .footer-marca {
+            margin-top: 20px;
+            text-align: right;
+            font-size: 12px;
+            color: #99a3ad;
+            letter-spacing: 1px;
+            font-weight: 300;
+            border-top: 1px solid #e5e8e8;
+            padding-top: 14px;
+        }
+
+        .btn {
+            padding: 12px 32px;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+        }
+
+        .btn-success {
+            background: #1e8449;
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #196f3d;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(30, 132, 73, 0.3);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #1a5276;
+            border: 2px solid #1a5276;
+        }
+
+        .btn-outline:hover {
+            background: #eaf2f8;
+        }
+
+        .btn-sm {
+            padding: 8px 20px;
+            font-size: 13px;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #1e8449;
+            color: white;
+            padding: 14px 26px;
+            border-radius: 10px;
+            font-weight: 500;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            transform: translateY(80px);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 18px 16px;
+            }
+            .datos-paciente {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px 12px;
+            }
+            .grid-b {
+                grid-template-columns: 1fr;
+            }
+            .tabla-a .etiqueta {
+                width: 80px;
+                font-size: 12px;
+            }
+            .tabla-a .opciones {
+                gap: 2px 8px;
+            }
+            .tabla-a .opciones label {
+                font-size: 12px;
+            }
+            .signos-vitales {
+                grid-template-columns: 1fr 1fr 1fr;
+                gap: 6px 10px;
+            }
+            .signos-vitales .input-sv {
+                width: 50px;
+            }
+            .riesgos-grid {
+                grid-template-columns: 1fr;
+            }
+            .recomendacion-grid {
+                grid-template-columns: 1fr;
+            }
+            .header h1 {
+                font-size: 20px;
+            }
+            .resumen-final textarea {
+                min-height: 200px;
+                font-size: 13px;
+            }
+            .resumen-final .resumen-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .resumen-final .acciones-resumen {
+                justify-content: flex-start;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 10px;
+            }
+            .container {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+            .btn,
+            .resumen-final .acciones-resumen .btn {
+                display: none !important;
+            }
+            .seccion-header {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .datos-paciente {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .signos-vitales {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .resumen-final textarea {
+                border: 1px solid #ccc;
+                background: white;
+                min-height: 200px;
+            }
+            .footer-marca {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="toast" class="toast">✅ Resumen copiado al portapapeles</div>
+
+    <div class="container" id="plantilla">
+
+        <div class="header">
+            <h1>🏥 Complejo Sanitario Favaloro-Molas</h1>
+            <h2>Salud Mental</h2>
+            <h3>Evolución de Enfermería — SBAR</h3>
+        </div>
+
+        <div class="datos-paciente">
+            <div class="campo">
+                <span class="label">Paciente:</span>
+                <input type="text" class="valor-input" id="paciente" placeholder="Apellido y Nombre" oninput="actualizarResumen()">
+            </div>
+            <div class="campo">
+                <span class="label">Nº Historia / Cama:</span>
+                <input type="text" class="valor-input" id="historia" placeholder="Nº / Cama" oninput="actualizarResumen()">
+            </div>
+            <div class="campo">
+                <span class="label">Fecha:</span>
+                <input type="date" class="valor-input" id="fecha" onchange="actualizarResumen()">
+            </div>
+            <div class="campo">
+                <span class="label">Turno:</span>
+                <select class="valor-input" id="turno" onchange="actualizarResumen()">
+                    <option value="">Seleccionar</option>
+                    <option value="Mañana">Mañana</option>
+                    <option value="Tarde">Tarde</option>
+                    <option value="Vespertino">Vespertino</option>
+                    <option value="Noche">Noche</option>
+                </select>
+            </div>
+            <div class="campo">
+                <span class="label">Día de internación:</span>
+                <input type="text" class="valor-input" id="dia_internacion" placeholder="Ej: 5" oninput="actualizarResumen()">
+            </div>
+        </div>
+
+        <!-- S -->
+        <div class="seccion sbar-s">
+            <div class="seccion-header">
+                <span class="letra">S</span>
+                <span class="titulo">SITUACIÓN ACTUAL</span>
+                <span class="subtitulo">— ¿Cómo está hoy? ¿Hay novedad?</span>
+            </div>
+            <div class="seccion-body">
+                <div class="opciones-novedad">
+                    <label>
+                        <input type="radio" name="novedad" value="Sin novedad — igual que días anteriores" onchange="actualizarResumen()">
+                        Sin novedad — igual que días anteriores
+                    </label>
+                    <label>
+                        <input type="radio" name="novedad" value="Novedad / Cambio" onchange="actualizarResumen()">
+                        Novedad / Cambio
+                    </label>
+                </div>
+                <textarea class="textarea-s" id="situacion" placeholder="Describir brevemente el estado actual o la novedad… Ej: 'Hoy más ansioso, refiere no dormir bien'" oninput="actualizarResumen()"></textarea>
+            </div>
+        </div>
+
+        <!-- B -->
+        <div class="seccion sbar-b">
+            <div class="seccion-header">
+                <span class="letra">B</span>
+                <span class="titulo">ANTECEDENTES</span>
+                <span class="subtitulo">— Diagnóstico y tratamiento de base</span>
+            </div>
+            <div class="seccion-body">
+                <div class="grid-b">
+                    <div class="campo-b">
+                        <label>Diagnóstico presuntivo / principal</label>
+                        <input type="text" id="diagnostico" placeholder="Ej: Trastorno Depresivo Mayor" oninput="actualizarResumen()">
+                    </div>
+                    <div class="campo-b">
+                        <label>Tratamiento farmacológico actual</label>
+                        <input type="text" id="tratamiento" placeholder="Ej: Sertralina 150mg + Quetiapina 300mg" oninput="actualizarResumen()">
+                    </div>
+                    <div class="campo-b">
+                        <label>¿Hubo cambio de tratamiento?</label>
+                        <select id="cambio_tto" onchange="actualizarResumen()">
+                            <option value="">Seleccionar</option>
+                            <option value="No, sigue igual">No, sigue igual</option>
+                            <option value="Sí, cambio">Sí, cambio</option>
+                        </select>
+                    </div>
+                    <div class="campo-b">
+                        <label>Especificar cambio (si corresponde)</label>
+                        <input type="text" id="cambio_espec" placeholder="Ej: Aumento de olanzapina a 20mg" oninput="actualizarResumen()">
+                    </div>
+                    <div class="campo-b" style="grid-column: 1 / -1;">
+                        <label>Alergias / Contraindicaciones</label>
+                        <input type="text" id="alergias" placeholder="Ej: Ninguna conocida / Alergia a penicilina" oninput="actualizarResumen()">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- A -->
+        <div class="seccion sbar-a">
+            <div class="seccion-header">
+                <span class="letra">A</span>
+                <span class="titulo">EVALUACIÓN DE SALUD MENTAL</span>
+                <span class="subtitulo">— Estado actual</span>
+            </div>
+            <div class="seccion-body">
+                <table class="tabla-a">
+                    <tr>
+                        <td class="etiqueta">Ánimo</td>
+                        <td>
+                            <div class="opciones">
+                                <label><input type="radio" name="animo" value="Eutímico" onchange="actualizarResumen()"> Eutímico</label>
+                                <label><input type="radio" name="animo" value="Deprimido" onchange="actualizarResumen()"> Deprimido</label>
+                                <label><input type="radio" name="animo" value="Ansioso" onchange="actualizarResumen()"> Ansioso</label>
+                                <label><input type="radio" name="animo" value="Irritable" onchange="actualizarResumen()"> Irritable</label>
+                                <label><input type="radio" name="animo" value="Elevado" onchange="actualizarResumen()"> Elevado</label>
+                                <label><input type="radio" name="animo" value="Aplanado" onchange="actualizarResumen()"> Aplanado</label>
+                            </div>
+                        </td>
+                        <td><input type="text" class="obs-input" placeholder="Obs" id="obs_animo" oninput="actualizarResumen()"></td>
+                    </tr>
+                    <tr>
+                        <td class="etiqueta">Pensamiento</td>
+                        <td>
+                            <div class="opciones">
+                                <label><input type="radio" name="pensamiento" value="Coherente" onchange="actualizarResumen()"> Coherente</label>
+                                <label><input type="radio" name="pensamiento" value="Incoherente" onchange="actualizarResumen()"> Incoherente</label>
+                                <label><input type="radio" name="pensamiento" value="Delirante" onchange="actualizarResumen()"> Delirante</label>
+                                <label><input type="radio" name="pensamiento" value="Circunstancial" onchange="actualizarResumen()"> Circunstancial</label>
+                                <label><input type="radio" name="pensamiento" value="Bloqueos" onchange="actualizarResumen()"> Bloqueos</label>
+                            </div>
+                        </td>
+                        <td><input type="text" class="obs-input" placeholder="Obs" id="obs_pensamiento" oninput="actualizarResumen()"></td>
+                    </tr>
+                    <tr>
+                        <td class="etiqueta">Percepción</td>
+                        <td>
+                            <div class="opciones">
+                                <label><input type="radio" name="percepcion" value="Sin alteraciones" onchange="actualizarResumen()"> Sin alteraciones</label>
+                                <label><input type="radio" name="percepcion" value="Alucinaciones" onchange="actualizarResumen()"> Alucinaciones</label>
+                                <label><input type="radio" name="percepcion" value="Ideas delirantes" onchange="actualizarResumen()"> Ideas delirantes</label>
+                            </div>
+                        </td>
+                        <td><input type="text" class="obs-input" placeholder="Auditivas / Visuales / Tema" id="obs_percepcion" oninput="actualizarResumen()"></td>
+                    </tr>
+                    <tr>
+                        <td class="etiqueta">Conducta</td>
+                        <td>
+                            <div class="opciones">
+                                <label><input type="radio" name="conducta" value="Colaborador" onchange="actualizarResumen()"> Colaborador</label>
+                                <label><input type="radio" name="conducta" value="Agitado" onchange="actualizarResumen()"> Agitado</label>
+                                <label><input type="radio" name="conducta" value="Retraído" onchange="actualizarResumen()"> Retraído</label>
+                                <label><input type="radio" name="conducta" value="Desinhibido" onchange="actualizarResumen()"> Desinhibido</label>
+                                <label><input type="radio" name="conducta" value="Agresivo" onchange="actualizarResumen()"> Agresivo</label>
+                                <label><input type="radio" name="conducta" value="Autolesivo" onchange="actualizarResumen()"> Autolesivo</label>
+                            </div>
+                        </td>
+                        <td><input type="text" class="obs-input" placeholder="Obs" id="obs_conducta" oninput="actualizarResumen()"></td>
+                    </tr>
+                    <tr>
+                        <td class="etiqueta">Sueño</td>
+                        <td>
+                            <div class="opciones">
+                                <label><input type="radio" name="sueno" value="Conservado" onchange="actualizarResumen()"> Conservado</label>
+                                <label><input type="radio" name="sueno" value="Insomnio" onchange="actualizarResumen()"> Insomnio</label>
+                                <label><input type="radio" name="sueno" value="Hipersomnia" onchange="actualizarResumen()"> Hipersomnia</label>
+                                <label><input type="radio" name="sueno" value="Irregulares" onchange="actualizarResumen()"> Irregulares</label>
+                            </div>
+                        </td>
+                        <td><input type="text" class="obs-input" placeholder="Obs" id="obs_sueno" oninput="actualizarResumen()"></td>
+                    </tr>
+                    <tr>
+                        <td class="etiqueta">Apetito</td>
+                        <td>
+                            <div class="opciones">
+                                <label><input type="radio" name="apetito" value="Conservado" onchange="actualizarResumen()"> Conservado</label>
+                                <label><input type="radio" name="apetito" value="Disminuido" onchange="actualizarResumen()"> Disminuido</label>
+                                <label><input type="radio" name="apetito" value="Aumentado" onchange="actualizarResumen()"> Aumentado</label>
+                                <label><input type="radio" name="apetito" value="Rechazo" onchange="actualizarResumen()"> Rechazo</label>
+                            </div>
+                        </td>
+                        <td><input type="text" class="obs-input" placeholder="Obs" id="obs_apetito" oninput="actualizarResumen()"></td>
+                    </tr>
+                    <tr>
+                        <td class="etiqueta">Adherencia</td>
+                        <td>
+                            <div class="opciones">
+                                <label><input type="radio" name="adherencia" value="Completa" onchange="actualizarResumen()"> Completa</label>
+                                <label><input type="radio" name="adherencia" value="Parcial" onchange="actualizarResumen()"> Parcial</label>
+                                <label><input type="radio" name="adherencia" value="Rechazo" onchange="actualizarResumen()"> Rechazo</label>
+                                <label><input type="radio" name="adherencia" value="Escupe/esconde" onchange="actualizarResumen()"> Escupe/esconde</label>
+                            </div>
+                        </td>
+                        <td><input type="text" class="obs-input" placeholder="Obs" id="obs_adherencia" oninput="actualizarResumen()"></td>
+                    </tr>
+                    <tr>
+                        <td class="etiqueta">Relaciones</td>
+                        <td>
+                            <div class="opciones">
+                                <label><input type="radio" name="relaciones" value="Adecuada" onchange="actualizarResumen()"> Adecuada</label>
+                                <label><input type="radio" name="relaciones" value="Aislado" onchange="actualizarResumen()"> Aislado</label>
+                                <label><input type="radio" name="relaciones" value="Conflictiva" onchange="actualizarResumen()"> Conflictiva</label>
+                            </div>
+                        </td>
+                        <td><input type="text" class="obs-input" placeholder="Obs" id="obs_relaciones" oninput="actualizarResumen()"></td>
+                    </tr>
+                </table>
+
+                <!-- Signos Vitales -->
+                <div class="signos-vitales">
+                    <div class="campo-sv">
+                        <span class="label-sv">T/A:</span>
+                        <input type="text" class="input-sv" id="sv_ta" placeholder="120/80" oninput="actualizarResumen()">
+                    </div>
+                    <div class="campo-sv">
+                        <span class="label-sv">FC:</span>
+                        <input type="text" class="input-sv input-sv-small" id="sv_fc" placeholder="80" oninput="actualizarResumen()">
+                        <span style="font-size:12px;color:#7d6608;">lpm</span>
+                    </div>
+                    <div class="campo-sv">
+                        <span class="label-sv">FR:</span>
+                        <input type="text" class="input-sv input-sv-small" id="sv_fr" placeholder="16" oninput="actualizarResumen()">
+                        <span style="font-size:12px;color:#7d6608;">rpm</span>
+                    </div>
+                    <div class="campo-sv">
+                        <span class="label-sv">Tª:</span>
+                        <input type="text" class="input-sv input-sv-small" id="sv_temp" placeholder="36.5" oninput="actualizarResumen()">
+                        <span style="font-size:12px;color:#7d6608;">°C</span>
+                    </div>
+                    <div class="campo-sv">
+                        <span class="label-sv">SatO₂:</span>
+                        <input type="text" class="input-sv input-sv-small" id="sv_sato2" placeholder="98" oninput="actualizarResumen()">
+                        <span style="font-size:12px;color:#7d6608;">%</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- R -->
+        <div class="seccion sbar-r">
+            <div class="seccion-header">
+                <span class="letra">R</span>
+                <span class="titulo">RIESGOS Y RECOMENDACIÓN</span>
+                <span class="subtitulo">— Seguridad y plan de acción</span>
+            </div>
+            <div class="seccion-body">
+
+                <div style="font-weight:600; color:#922b21; font-size:14px; margin-bottom:6px;">▸ Evaluación de riesgos</div>
+                <div class="riesgos-grid">
+                    <div class="riesgo-item">
+                        <span class="nombre">Autolisis / Suicidio</span>
+                        <div class="opciones-riesgo">
+                            <label><input type="radio" name="riesgo_autolisis" value="Bajo" onchange="actualizarResumen()"> Bajo</label>
+                            <label><input type="radio" name="riesgo_autolisis" value="Moderado" onchange="actualizarResumen()"> Moderado</label>
+                            <label><input type="radio" name="riesgo_autolisis" value="Alto" onchange="actualizarResumen()"> Alto</label>
+                        </div>
+                        <input type="text" class="obs-riesgo" placeholder="Obs" id="obs_autolisis" oninput="actualizarResumen()">
+                    </div>
+                    <div class="riesgo-item">
+                        <span class="nombre">Heteroagresividad</span>
+                        <div class="opciones-riesgo">
+                            <label><input type="radio" name="riesgo_hetero" value="Bajo" onchange="actualizarResumen()"> Bajo</label>
+                            <label><input type="radio" name="riesgo_hetero" value="Moderado" onchange="actualizarResumen()"> Moderado</label>
+                            <label><input type="radio" name="riesgo_hetero" value="Alto" onchange="actualizarResumen()"> Alto</label>
+                        </div>
+                        <input type="text" class="obs-riesgo" placeholder="Obs" id="obs_hetero" oninput="actualizarResumen()">
+                    </div>
+                    <div class="riesgo-item">
+                        <span class="nombre">Fuga / Abandono</span>
+                        <div class="opciones-riesgo">
+                            <label><input type="radio" name="riesgo_fuga" value="Bajo" onchange="actualizarResumen()"> Bajo</label>
+                            <label><input type="radio" name="riesgo_fuga" value="Moderado" onchange="actualizarResumen()"> Moderado</label>
+                            <label><input type="radio" name="riesgo_fuga" value="Alto" onchange="actualizarResumen()"> Alto</label>
+                        </div>
+                        <input type="text" class="obs-riesgo" placeholder="Obs" id="obs_fuga" oninput="actualizarResumen()">
+                    </div>
+                    <div class="riesgo-item">
+                        <span class="nombre">Caídas</span>
+                        <div class="opciones-riesgo">
+                            <label><input type="radio" name="riesgo_caidas" value="Bajo" onchange="actualizarResumen()"> Bajo</label>
+                            <label><input type="radio" name="riesgo_caidas" value="Moderado" onchange="actualizarResumen()"> Moderado</label>
+                            <label><input type="radio" name="riesgo_caidas" value="Alto" onchange="actualizarResumen()"> Alto</label>
+                        </div>
+                        <input type="text" class="obs-riesgo" placeholder="Obs" id="obs_caidas" oninput="actualizarResumen()">
+                    </div>
+                </div>
+
+                <div style="font-weight:600; color:#922b21; font-size:14px; margin:14px 0 6px;">▸ Recomendación / Plan de acción</div>
+                <div class="recomendacion-grid">
+                    <label class="reco-item">
+                        <input type="checkbox" value="Continuar con plan habitual" onchange="actualizarResumen()"> Continuar con plan habitual
+                    </label>
+                    <label class="reco-item">
+                        <input type="checkbox" value="Aumentar vigilancia" onchange="actualizarResumen()"> Aumentar vigilancia
+                        <input type="text" class="reco-obs" placeholder="cada..." oninput="actualizarResumen()">
+                    </label>
+                    <label class="reco-item">
+                        <input type="checkbox" value="Modificar entorno" onchange="actualizarResumen()"> Modificar entorno
+                        <input type="text" class="reco-obs" placeholder="especificar" oninput="actualizarResumen()">
+                    </label>
+                    <label class="reco-item">
+                        <input type="checkbox" value="Solicitar valoración médica" onchange="actualizarResumen()"> Solicitar valoración médica
+                    </label>
+                    <label class="reco-item">
+                        <input type="checkbox" value="Informar a familia" onchange="actualizarResumen()"> Informar a familia
+                    </label>
+                    <label class="reco-item">
+                        <input type="checkbox" value="Derivar a psicología" onchange="actualizarResumen()"> Derivar a psicología
+                    </label>
+                    <label class="reco-item" style="grid-column: 1 / -1;">
+                        <input type="checkbox" value="Otra" onchange="actualizarResumen()"> Otra
+                        <input type="text" class="reco-obs" placeholder="especificar" style="flex:2;" oninput="actualizarResumen()">
+                    </label>
+                </div>
+
+                <textarea class="textarea-r" id="recomendacion_texto" placeholder="Análisis / Juicio clínico o recomendaciones adicionales…" oninput="actualizarResumen()"></textarea>
+            </div>
+        </div>
+
+        <!-- RESUMEN AUTOMÁTICO AL FINAL -->
+        <div class="resumen-final">
+            <div class="resumen-header">
+                <h4>
+                    📋 Resumen para SIS
+                    <span class="badge-auto">⏳ Actualización automática</span>
+                </h4>
+                <div class="acciones-resumen">
+                    <button class="btn btn-success btn-sm" onclick="copiarResumen()">📄 Copiar resumen</button>
+                    <button class="btn btn-outline btn-sm" onclick="limpiarFormulario()">🔄 Limpiar formulario</button>
+                </div>
+            </div>
+            <textarea id="resumenTexto" readonly></textarea>
+        </div>
+
+        <!-- MARCA REGISTRADA -->
+        <div class="footer-marca">
+            Distel Diego ®
+        </div>
+
+    </div>
+
+    <script>
+        function getVal(id) {
+            const el = document.getElementById(id);
+            return el ? el.value.trim() : '';
+        }
+
+        function getRadioVal(name) {
+            const el = document.querySelector(`input[name="${name}"]:checked`);
+            return el ? el.value : '';
+        }
+
+        function getCheckboxVals() {
+            const checks = document.querySelectorAll('.sbar-r input[type="checkbox"]:checked');
+            const vals = [];
+            checks.forEach(cb => {
+                let txt = cb.value;
+                const parent = cb.closest('.reco-item');
+                if (parent) {
+                    const obsInput = parent.querySelector('.reco-obs');
+                    if (obsInput && obsInput.value.trim() !== '') {
+                        txt += ' (' + obsInput.value.trim() + ')';
+                    }
+                }
+                vals.push(txt);
+            });
+            return vals;
+        }
+
+        function actualizarResumen() {
+            const paciente = getVal('paciente') || '(no especificado)';
+            const historia = getVal('historia') || '(no especificado)';
+            const fecha = getVal('fecha') || '(no especificada)';
+            const turno = document.getElementById('turno') ? document.getElementById('turno').value : '';
+            const diaInt = getVal('dia_internacion') || '(no especificado)';
+
+            const novedad = getRadioVal('novedad') || '';
+            const situacion = getVal('situacion') || '';
+
+            const diagnostico = getVal('diagnostico') || '';
+            const tratamiento = getVal('tratamiento') || '';
+            const cambioTto = document.getElementById('cambio_tto') ? document.getElementById('cambio_tto').value : '';
+            const cambioEsp = getVal('cambio_espec') || '';
+            const alergias = getVal('alergias') || '';
+
+            const animo = getRadioVal('animo');
+            const obsAnimo = getVal('obs_animo');
+            const pensamiento = getRadioVal('pensamiento');
+            const obsPens = getVal('obs_pensamiento');
+            const percepcion = getRadioVal('percepcion');
+            const obsPercep = getVal('obs_percepcion');
+            const conducta = getRadioVal('conducta');
+            const obsConducta = getVal('obs_conducta');
+            const sueno = getRadioVal('sueno');
+            const obsSueno = getVal('obs_sueno');
+            const apetito = getRadioVal('apetito');
+            const obsApetito = getVal('obs_apetito');
+            const adherencia = getRadioVal('adherencia');
+            const obsAdh = getVal('obs_adherencia');
+            const relaciones = getRadioVal('relaciones');
+            const obsRel = getVal('obs_relaciones');
+
+            // Signos vitales
+            const sv_ta = getVal('sv_ta');
+            const sv_fc = getVal('sv_fc');
+            const sv_fr = getVal('sv_fr');
+            const sv_temp = getVal('sv_temp');
+            const sv_sato2 = getVal('sv_sato2');
+
+            const riesgoAuto = getRadioVal('riesgo_autolisis');
+            const obsAuto = getVal('obs_autolisis');
+            const riesgoHetero = getRadioVal('riesgo_hetero');
+            const obsHetero = getVal('obs_hetero');
+            const riesgoFuga = getRadioVal('riesgo_fuga');
+            const obsFuga = getVal('obs_fuga');
+            const riesgoCaidas = getRadioVal('riesgo_caidas');
+            const obsCaidas = getVal('obs_caidas');
+
+            const recomendacionesCheck = getCheckboxVals();
+            const recomendacionTexto = getVal('recomendacion_texto');
+
+            let lineas = [];
+            lineas.push('='.repeat(70));
+            lineas.push('COMPLEJO SANITARIO FAVALORO-MOLAS — SALUD MENTAL');
+            lineas.push('EVOLUCIÓN DE ENFERMERÍA (SBAR)');
+            lineas.push('='.repeat(70));
+            lineas.push('');
+            lineas.push(`Paciente: ${paciente}  |  Nº Historia/Cama: ${historia}  |  Fecha: ${fecha}  |  Turno: ${turno || '(no especificado)'}`);
+            lineas.push(`Día de internación: ${diaInt}`);
+            lineas.push('');
+            lineas.push('─'.repeat(70));
+            lineas.push('S — SITUACIÓN ACTUAL');
+            lineas.push('─'.repeat(70));
+            if (novedad) {
+                lineas.push('▶ ' + novedad);
+            }
+            if (situacion) {
+                lineas.push(situacion);
+            }
+            if (!novedad && !situacion) {
+                lineas.push('(sin información)');
+            }
+            lineas.push('');
+            lineas.push('─'.repeat(70));
+            lineas.push('B — ANTECEDENTES');
+            lineas.push('─'.repeat(70));
+            lineas.push(`Diagnóstico presuntivo: ${diagnostico || '(no especificado)'}`);
+            lineas.push(`Tratamiento actual: ${tratamiento || '(no especificado)'}`);
+            if (cambioTto) {
+                lineas.push(`Cambio de tratamiento: ${cambioTto}${cambioEsp ? ' — ' + cambioEsp : ''}`);
+            }
+            lineas.push(`Alergias / Contraindicaciones: ${alergias || 'Ninguna conocida'}`);
+            lineas.push('');
+            lineas.push('─'.repeat(70));
+            lineas.push('A — EVALUACIÓN DE SALUD MENTAL');
+            lineas.push('─'.repeat(70));
+
+            const evalItems = [
+                { label: 'Ánimo', value: animo, obs: obsAnimo },
+                { label: 'Pensamiento', value: pensamiento, obs: obsPens },
+                { label: 'Percepción', value: percepcion, obs: obsPercep },
+                { label: 'Conducta', value: conducta, obs: obsConducta },
+                { label: 'Sueño', value: sueno, obs: obsSueno },
+                { label: 'Apetito', value: apetito, obs: obsApetito },
+                { label: 'Adherencia', value: adherencia, obs: obsAdh },
+                { label: 'Relaciones', value: relaciones, obs: obsRel }
+            ];
+
+            let hayEvaluacion = false;
+            evalItems.forEach(item => {
+                if (item.value) {
+                    lineas.push(`${item.label}: ${item.value}${item.obs ? ' (' + item.obs + ')' : ''}`);
+                    hayEvaluacion = true;
+                }
+            });
+
+            // Signos vitales
+            let haySV = false;
+            let svParts = [];
+            if (sv_ta) { svParts.push(`T/A ${sv_ta}`); haySV = true; }
+            if (sv_fc) { svParts.push(`FC ${sv_fc} lpm`); haySV = true; }
+            if (sv_fr) { svParts.push(`FR ${sv_fr} rpm`); haySV = true; }
+            if (sv_temp) { svParts.push(`Tª ${sv_temp}°C`); haySV = true; }
+            if (sv_sato2) { svParts.push(`SatO₂ ${sv_sato2}%`); haySV = true; }
+            if (haySV) {
+                lineas.push(`Signos vitales: ${svParts.join(' | ')}`);
+                hayEvaluacion = true;
+            }
+
+            if (!hayEvaluacion) {
+                lineas.push('(sin información)');
+            }
+            lineas.push('');
+            lineas.push('─'.repeat(70));
+            lineas.push('R — RIESGOS Y RECOMENDACIÓN');
+            lineas.push('─'.repeat(70));
+
+            const riesgoItems = [
+                { label: 'Autolisis/Suicidio', value: riesgoAuto, obs: obsAuto },
+                { label: 'Heteroagresividad', value: riesgoHetero, obs: obsHetero },
+                { label: 'Fuga/Abandono', value: riesgoFuga, obs: obsFuga },
+                { label: 'Caídas', value: riesgoCaidas, obs: obsCaidas }
+            ];
+
+            let hayRiesgos = false;
+            riesgoItems.forEach(item => {
+                if (item.value) {
+                    lineas.push(`${item.label}: ${item.value}${item.obs ? ' — ' + item.obs : ''}`);
+                    hayRiesgos = true;
+                }
+            });
+            if (!hayRiesgos) {
+                lineas.push('(sin información)');
+            }
+            lineas.push('');
+
+            if (recomendacionesCheck.length > 0) {
+                lineas.push('Plan de acción:');
+                recomendacionesCheck.forEach(r => lineas.push('  • ' + r));
+                lineas.push('');
+            }
+
+            if (recomendacionTexto) {
+                lineas.push('Análisis / Juicio clínico:');
+                lineas.push(recomendacionTexto);
+                lineas.push('');
+            }
+
+            if (!recomendacionesCheck.length && !recomendacionTexto) {
+                lineas.push('(sin información)');
+                lineas.push('');
+            }
+
+            lineas.push('─'.repeat(70));
+            lineas.push('='.repeat(70));
+
+            document.getElementById('resumenTexto').value = lineas.join('\n');
+        }
+
+        function copiarResumen() {
+            const texto = document.getElementById('resumenTexto');
+            if (!texto.value || texto.value.includes('(sin información)') && texto.value.split('\n').length < 10) {
+                mostrarToast('⚠️ Complete al menos algunos campos antes de copiar');
+                return;
+            }
+            texto.select();
+            navigator.clipboard.writeText(texto.value).then(() => {
+                mostrarToast('✅ Resumen copiado al portapapeles');
+            }).catch(() => {
+                document.execCommand('copy');
+                mostrarToast('✅ Resumen copiado (método alternativo)');
+            });
+        }
+
+        function mostrarToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            clearTimeout(toast._timeout);
+            toast._timeout = setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+
+        function limpiarFormulario() {
+            if (!confirm('¿Limpiar todos los campos del formulario?')) return;
+            const inputs = document.querySelectorAll('input[type="text"], input[type="date"], textarea');
+            inputs.forEach(el => el.value = '');
+            const selects = document.querySelectorAll('select');
+            selects.forEach(el => el.selectedIndex = 0);
+            const radios = document.querySelectorAll('input[type="radio"]');
+            radios.forEach(el => el.checked = false);
+            const checks = document.querySelectorAll('input[type="checkbox"]');
+            checks.forEach(el => el.checked = false);
+            actualizarResumen();
+            mostrarToast('🧹 Formulario limpiado');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const fechaInput = document.getElementById('fecha');
+            if (fechaInput) {
+                const hoy = new Date().toISOString().split('T')[0];
+                fechaInput.value = hoy;
+            }
+            actualizarResumen();
+        });
+    </script>
+
+</body>
+</html>
